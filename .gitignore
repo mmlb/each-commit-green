@@ -1,0 +1,8 @@
+.direnv/
+.envrc.private
+
+# Devenv
+.devenv*
+devenv.local.nix
+.pre-commit-config.yaml
+.devcontainer.json
