@@ -29,7 +29,24 @@
           inherit system;
           overlays = [devshell.overlays.default];
         };
+
+        # Generate a user-friendly version number.
+        version = builtins.substring 0 8 self.lastModifiedDate;
       in rec {
+        # Provide some binary packages for selected system types.
+        packages = flake-utils.lib.flattenTree {
+          each-commit-green = pkgs.buildGoModule {
+            pname = "each-commit-green";
+            inherit version;
+            # In 'nix develop', we don't need a copy of the source tree
+            # in the Nix store.
+            src = ./.;
+            vendorSha256 = "sha256-2lLwZWu0rLhiRMDk5vqF1RWL+DJyUdOQ2j/6U1E47FI=";
+          };
+        };
+        defaultPackage = packages.each-commit-green;
+        apps.each-commit-green = flake-utils.lib.mkApp {drv = packages.each-commit-green;};
+        defaultApp = apps.each-commit-green;
         devShell = pkgs.devshell.mkShell {
           motd = "";
           packages = [devenv.packages.${system}.devenv];
