@@ -3,7 +3,7 @@ module github.com/mmlb/each-commit-green
 go 1.19
 
 require (
-	github.com/gofri/go-github-ratelimit v1.0.2
+	github.com/gofri/go-github-ratelimit v1.1.0
 	github.com/google/go-github/v50 v50.1.0
 	golang.org/x/oauth2 v0.6.0
 )
